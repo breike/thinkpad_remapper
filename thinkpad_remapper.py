@@ -179,7 +179,7 @@ REMAP_TABLE = {
         2: evdev.ecodes.KEY_NEXTSONG
     },
     evdev.ecodes.KEY_4: {
-        1: evdev.ecodes.KEY_3,
+        1: evdev.ecodes.KEY_4,
         2: evdev.ecodes.KEY_PREVIOUSSONG
     },
 }
