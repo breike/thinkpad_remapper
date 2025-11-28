@@ -224,12 +224,8 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
             elif ev.code in REMAP_TABLE:
                 if ctrl_pressed and ev.code != evdev.ecodes.KEY_LEFTSHIFT and ev.code != evdev.ecodes.KEY_RIGHTSHIFT:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTCTRL, ev.value)
-                    if ev.value == 0:
-                        ctrl_pressed = False
                 if alt_pressed and ev.code != evdev.ecodes.KEY_LEFTSHIFT and ev.code != evdev.ecodes.KEY_RIGHTSHIFT:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTALT, ev.value)
-                    if ev.value == 0:
-                        alt_pressed = False
                 if shift_pressed and ev.code != evdev.ecodes.KEY_LEFTALT and ev.code != evdev.ecodes.KEY_LEFTCTRL:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTSHIFT, ev.value)
                 # Lookup the key we want to press/release instead...
