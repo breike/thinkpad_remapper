@@ -241,6 +241,8 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                     alt_pressed = True
                 elif remapped_code == evdev.ecodes.KEY_LEFTSHIFT and (ev.value == 1 or ev.value == 2):
                     shift_pressed = True
+                elif remapped_code == evdev.ecodes.KEY_LEFTSHIFT and ev.value == 0:
+                    shift_pressed = False
                 else:
                     ui.write(evdev.ecodes.EV_KEY, remapped_code, ev.value)
             elif ev.code == evdev.ecodes.KEY_LEFTCTRL and ev.value == 1:
