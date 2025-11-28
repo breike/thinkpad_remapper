@@ -224,7 +224,7 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                     if ev.value == 0:
                         alt_pressed = False
                 # Lookup the key we want to press/release instead...
-                remapped_code = REMAP_TABLE[current_layer][ev.code]
+                remapped_code = REMAP_TABLE[ev.code][current_layer]
                 # And do it.
                 if remapped_code == evdev.ecodes.KEY_LEFTCTRL:
                     ctrl_pressed = True
