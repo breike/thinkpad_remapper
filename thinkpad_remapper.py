@@ -53,16 +53,16 @@ REMAP_TABLE = {
         2: evdev.ecodes.KEY_F13
     },
     evdev.ecodes.KEY_W: {
-        1: evdev.ecodes.KEY_WWW,
-        2: evdev.ecodes.KEY_REWIND
+        1: evdev.ecodes.KEY_W,
+        2: evdev.ecodes.KEY_15
     },
     evdev.ecodes.KEY_E: {
         1: evdev.ecodes.KEY_E,
         2: evdev.ecodes.KEY_UP
     },
     evdev.ecodes.KEY_R: {
-        1: evdev.ecodes.KEY_RADIO,
-        2: evdev.ecodes.KEY_FASTFORWARD
+        1: evdev.ecodes.KEY_R,
+        2: evdev.ecodes.KEY_F16
     },
     evdev.ecodes.KEY_T: {
         1: evdev.ecodes.KEY_T,
@@ -155,11 +155,11 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_X: {
         1: evdev.ecodes.KEY_X,
-        2: evdev.ecodes.KEY_XFER
+        2: evdev.ecodes.KEY_F17
     },
     evdev.ecodes.KEY_V: {
         1: evdev.ecodes.KEY_V,
-        2: evdev.ecodes.KEY_VCR
+        2: evdev.ecodes.KEY_F18
     },
     evdev.ecodes.KEY_N: {
         1: evdev.ecodes.KEY_N,
