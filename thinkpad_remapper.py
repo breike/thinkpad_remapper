@@ -54,7 +54,7 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_W: {
         1: evdev.ecodes.KEY_W,
-        2: evdev.ecodes.KEY_15
+        2: evdev.ecodes.KEY_F15
     },
     evdev.ecodes.KEY_E: {
         1: evdev.ecodes.KEY_E,
