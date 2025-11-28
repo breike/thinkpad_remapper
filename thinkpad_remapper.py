@@ -216,7 +216,7 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                 break
             
             # selecting 2 layer if layering key pressed
-            elif ev.code == layering_key and (ev.value == 1 or ev.value == 2):
+            elif ev.code == layering_key and ev.value == 1:
                 current_layer = 2
             # or selecting 1 on releasing
             elif ev.code == layering_key and ev.value == 0:
@@ -243,7 +243,7 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                     shift_pressed = True
                 elif remapped_code == evdev.ecodes.KEY_LEFTSHIFT and ev.value == 0:
                     shift_pressed = False
-                else:
+                elif ev.value == 1:
                     ui.write(evdev.ecodes.EV_KEY, remapped_code, ev.value)
             elif ev.code == evdev.ecodes.KEY_LEFTCTRL and ev.value == 1:
                 ctrl_pressed = True
