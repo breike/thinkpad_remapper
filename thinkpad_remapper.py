@@ -249,7 +249,7 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                 ctrl_pressed = True
             elif ev.code == evdev.ecodes.KEY_LEFTALT and ev.value == 1:
                 alt_pressed = True
-            elif ev.code == evdev.ecodes.KEY_LEFTSHIFT and ev.value == 1:
+            elif ev.code == evdev.ecodes.KEY_LEFTSHIFT and (ev.value == 1 or ev.value == 2):
                 shift_pressed = True
             else:
                 if ctrl_pressed:
