@@ -34,12 +34,20 @@ ctrl_pressed = False
 # also left alt mode...
 alt_pressed = False
 
+# shift mode
+shift_pressed = False
+shift_key = evdev.ecodes.KEY_LEFTALT
+
 # Define an example dictionary describing the remaps.
 REMAP_TABLE = {
     # Let's swap A and B...
     evdev.ecodes.KEY_TAB: {
         1: evdev.ecodes.KEY_ESC,
         2: evdev.ecodes.KEY_LEFTALT
+    },
+    evdev.ecodes.KEY_LEFTALT: {
+        1: evdev.ecodes.KEY_LEFTSHIFT,
+        2: evdev.ecodes.KEY_LEFTSHIFT
     },
     evdev.ecodes.KEY_Q: {
         1: evdev.ecodes.KEY_Q,
@@ -223,6 +231,8 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTALT, ev.value)
                     if ev.value == 0:
                         alt_pressed = False
+                if shift_pressed:
+                    ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTSHIFT, ev.value)
                 # Lookup the key we want to press/release instead...
                 remapped_code = REMAP_TABLE[ev.code][current_layer]
                 # And do it.
@@ -230,12 +240,16 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                     ctrl_pressed = True
                 elif remapped_code == evdev.ecodes.KEY_LEFTALT:
                     alt_pressed = True
+                elif remapped_code == evdev.ecodes.KEY_LEFTSHIFT:
+                    shift_pressed = True
                 else:
                     ui.write(evdev.ecodes.EV_KEY, remapped_code, ev.value)
             elif ev.code == evdev.ecodes.KEY_LEFTCTRL:
                 ctrl_pressed = True
             elif ev.code == evdev.ecodes.KEY_LEFTALT:
                 alt_pressed = True
+            elif ev.code == evdev.ecodes.KEY_LEFTSHIFT:
+                shift_pressed = True
             else:
                 if ctrl_pressed:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTCTRL, ev.value)
