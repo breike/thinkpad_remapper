@@ -111,7 +111,7 @@ REMAP_TABLE = {
         2: evdev.ecodes.KEY_PAGEUP
     },
     evdev.ecodes.KEY_U: {
-        1: evdev.ecodes.KEY_Y,
+        1: evdev.ecodes.KEY_U,
         2: evdev.ecodes.KEY_1
     },
     evdev.ecodes.KEY_I: {
