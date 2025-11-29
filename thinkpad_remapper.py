@@ -90,7 +90,7 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_G: {
         1: evdev.ecodes.KEY_G,
-        2: evdev.ecodes.KEY_FAVORITES
+        2: evdev.ecodes.KEY_F19
     },
     evdev.ecodes.KEY_C: {
         1: evdev.ecodes.KEY_C,
