@@ -235,6 +235,7 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                 if not other_key_pressed:
                     ui.write(evdev.ecodes.EV_KEY, layering_key, 1)
                     ui.write(evdev.ecodes.EV_KEY, layering_key, 0)
+                other_key_pressed = False
             elif ev.code in REMAP_TABLE:
                 if ctrl_pressed and ev.code != evdev.ecodes.KEY_LEFTSHIFT and ev.code != evdev.ecodes.KEY_RIGHTSHIFT:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTCTRL, ev.value)
