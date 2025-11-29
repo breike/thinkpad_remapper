@@ -234,7 +234,7 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTCTRL, ev.value)
                 if alt_pressed and ev.code != evdev.ecodes.KEY_LEFTSHIFT and ev.code != evdev.ecodes.KEY_RIGHTSHIFT:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTALT, ev.value)
-                if shift_pressed and ev.code != evdev.ecodes.KEY_LEFTALT and ev.code != evdev.ecodes.KEY_LEFTCTRL:
+                if shift_pressed and ev.code != evdev.ecodes.KEY_LEFTALT and ev.code != evdev.ecodes.KEY_LEFTCTRL and ev.code != layering_key:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTSHIFT, ev.value)
                 # Lookup the key we want to press/release instead...
                 remapped_code = REMAP_TABLE[ev.code][current_layer]
