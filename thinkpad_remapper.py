@@ -27,6 +27,9 @@ current_layer = 1
 
 # key for switching to layers on pressing
 layering_key = evdev.ecodes.KEY_SPACE
+# if other key with layering key is pressed in other case send layering
+# key
+other_key_pressed = False
 
 # also add ctrl mode for sequential hotkeys
 ctrl_pressed = False
@@ -229,6 +232,9 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
             # or selecting 1 on releasing
             elif ev.code == layering_key and ev.value == 0:
                 current_layer = 1
+                if not other_key_pressed:
+                    ui.write(evdev.ecodes.EV_KEY, layering_key, 1)
+                    ui.write(evdev.ecodes.EV_KEY, layering_key, 0)
             elif ev.code in REMAP_TABLE:
                 if ctrl_pressed and ev.code != evdev.ecodes.KEY_LEFTSHIFT and ev.code != evdev.ecodes.KEY_RIGHTSHIFT:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTCTRL, ev.value)
@@ -236,6 +242,8 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTALT, ev.value)
                 if shift_pressed and ev.code != evdev.ecodes.KEY_LEFTALT and ev.code != evdev.ecodes.KEY_LEFTCTRL:
                     ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTSHIFT, ev.value)
+                if current_layer > 1:
+                    other_key_pressed = True
                 # Lookup the key we want to press/release instead...
                 remapped_code = REMAP_TABLE[ev.code][current_layer]
                 # And do it.
