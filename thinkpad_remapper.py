@@ -254,18 +254,23 @@ with evdev.UInput.from_device(kbd, name='kbdremap') as ui:
                         ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTALT, 1)
                     if shift_pressed:
                         ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTSHIFT, 1)
+
                     if ev.value == 1:
                         ui.write(evdev.ecodes.EV_KEY, remapped_code, 1)
                         ui.write(evdev.ecodes.EV_KEY, remapped_code, 0)
-                    elif: ev.value == 2
+                    elif ev.value == 2:
                         ui.write(evdev.ecodes.EV_KEY, remapped_code, 2)
                         ui.write(evdev.ecodes.EV_KEY, remapped_code, 0)
+                    else:
+                        ui.write(evdev.ecodes.EV_KEY, remapped_code, ev.value)
+
                     if ctrl_pressed:
                         ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTCTRL, 0)
                     if alt_pressed:
                         ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTALT, 0)
                     if shift_pressed:
                         ui.write(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_LEFTSHIFT, 0)
+
                     if current_layer > 1:
                         ui.write(evdev.ecodes.EV_KEY, remapped_code, 0)
             elif ev.code == evdev.ecodes.KEY_LEFTCTRL and ev.value == 1:
