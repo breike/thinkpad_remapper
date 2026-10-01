@@ -35,11 +35,18 @@ layering_key = evdev.ecodes.KEY_SPACE
 # must be held until the next key is pressed.
 STICKY_MODIFIERS = True
 
+# shift mode
+shift_pressed = False
+
 # Define an example dictionary describing the remaps.
 REMAP_TABLE = {
     evdev.ecodes.KEY_TAB: {
         1: evdev.ecodes.KEY_ESC,
         2: evdev.ecodes.KEY_LEFTALT
+    },
+    evdev.ecodes.KEY_LEFTALT: {
+        1: evdev.ecodes.KEY_LEFTSHIFT,
+        2: evdev.ecodes.KEY_LEFTSHIFT
     },
     evdev.ecodes.KEY_Q: {
         1: evdev.ecodes.KEY_Q,
@@ -47,7 +54,7 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_W: {
         1: evdev.ecodes.KEY_W,
-        2: evdev.ecodes.KEY_REWIND
+        2: evdev.ecodes.KEY_F15
     },
     evdev.ecodes.KEY_E: {
         1: evdev.ecodes.KEY_E,
@@ -55,7 +62,7 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_R: {
         1: evdev.ecodes.KEY_R,
-        2: evdev.ecodes.KEY_FASTFORWARD
+        2: evdev.ecodes.KEY_F16
     },
     evdev.ecodes.KEY_T: {
         1: evdev.ecodes.KEY_T,
@@ -83,7 +90,7 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_G: {
         1: evdev.ecodes.KEY_G,
-        2: evdev.ecodes.KEY_FAVORITES
+        2: evdev.ecodes.KEY_F19
     },
     evdev.ecodes.KEY_C: {
         1: evdev.ecodes.KEY_C,
@@ -93,6 +100,10 @@ REMAP_TABLE = {
     evdev.ecodes.KEY_LEFTSHIFT: {
         1: evdev.ecodes.KEY_SPACE,
         2: evdev.ecodes.KEY_SPACE
+    },
+    evdev.ecodes.KEY_7: {
+        1: evdev.ecodes.KEY_BACKSPACE,
+        2: evdev.ecodes.KEY_BACKSPACE
     },
     evdev.ecodes.KEY_6: {
         1: evdev.ecodes.KEY_BACKSPACE,
@@ -107,7 +118,7 @@ REMAP_TABLE = {
         2: evdev.ecodes.KEY_PAGEUP
     },
     evdev.ecodes.KEY_U: {
-        1: evdev.ecodes.KEY_U,  # was KEY_Y; probably a leftover from the example
+        1: evdev.ecodes.KEY_U,
         2: evdev.ecodes.KEY_1
     },
     evdev.ecodes.KEY_I: {
@@ -141,6 +152,14 @@ REMAP_TABLE = {
     evdev.ecodes.KEY_SEMICOLON: {
         1: evdev.ecodes.KEY_SEMICOLON,
         2: evdev.ecodes.KEY_8
+    },
+    evdev.ecodes.KEY_X: {
+        1: evdev.ecodes.KEY_X,
+        2: evdev.ecodes.KEY_F17
+    },
+    evdev.ecodes.KEY_V: {
+        1: evdev.ecodes.KEY_V,
+        2: evdev.ecodes.KEY_F18
     },
     evdev.ecodes.KEY_N: {
         1: evdev.ecodes.KEY_N,
