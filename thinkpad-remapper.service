@@ -10,10 +10,8 @@ Before=graphical.target
 
 [Service]
 Type=simple
-# Direct path (no shell) so the process is exactly the script;
-# working directory keeps it close to its sources.
+# Direct path (no shell) so the process is exactly the script.
 ExecStart=/usr/local/bin/thinkpad_remapper.py
-WorkingDirectory=/home/rusty/code/thinkpad_remapper
 # evdev + uinput require root; alsa/etc irrelevant.
 User=root
 Group=root

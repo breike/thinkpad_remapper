@@ -1,0 +1,17 @@
+# thinkpad_remapper.install — post-install / pre/post-remove hooks.
+# Enables the service on install, disables it on removal.
+#
+# Note: uinput stays loaded via /usr/lib/modules-load.d/thinkpad-remapper.conf.
+
+post_install() {
+    systemctl daemon-reload
+    systemctl enable --now thinkpad-remapper.service
+}
+
+pre_remove() {
+    systemctl disable --now thinkpad-remapper.service 2>/dev/null || true
+}
+
+post_remove() {
+    systemctl daemon-reload
+}
