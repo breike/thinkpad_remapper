@@ -161,6 +161,10 @@ REMAP_TABLE = {
         1: evdev.ecodes.KEY_V,
         2: evdev.ecodes.KEY_F18
     },
+    evdev.ecodes.KEY_Z: {
+        1: evdev.ecodes.KEY_Z,
+        2: evdev.ecodes.KEY_EJECTCD
+    },
     evdev.ecodes.KEY_N: {
         1: evdev.ecodes.KEY_N,
         2: evdev.ecodes.KEY_ENTER
