@@ -1,0 +1,33 @@
+[Unit]
+Description=Remap ThinkPad built-in keyboard (kbdremap uinput)
+# Needs the input devices and the uinput module; after input-login not.
+Wants=systemd-udev-settle.service
+After=systemd-udev-settle.service
+# The script grabs the built-in AT keyboard and injects via uinput, so
+# it needs to start after the input subsystem is up and before the
+# session takes over the keyboard.
+Before=graphical.target
+
+[Service]
+Type=simple
+# Direct path (no shell) so the process is exactly the script;
+# working directory keeps it close to its sources.
+ExecStart=/usr/local/bin/thinkpad_remapper.py
+WorkingDirectory=/home/rusty/code/thinkpad_remapper
+# evdev + uinput require root; alsa/etc irrelevant.
+User=root
+Group=root
+# Hardening (the script needs read/write on /dev/input/* and /dev/uinput,
+# ioctl for EVIOCGRAB, and /dev/input access; device nodes are not
+# namespaced, so keep them).
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/dev/input /dev/uinput
+NoNewPrivileges=false
+Restart=on-failure
+RestartSec=3
+# The script disables itself on PAUSE; a plain restart would re-grab
+# and remap again, which is desired.
+
+[Install]
+WantedBy=multi-user.target
