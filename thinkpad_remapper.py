@@ -74,7 +74,7 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_A: {
         1: evdev.ecodes.KEY_A,
-        2: evdev.ecodes.KEY_SEARCH,
+        2: evdev.ecodes.KEY_PROG1,
     },
     evdev.ecodes.KEY_S: {
         1: evdev.ecodes.KEY_S,
@@ -90,7 +90,11 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_G: {
         1: evdev.ecodes.KEY_G,
-        2: evdev.ecodes.KEY_F19
+        2: evdev.ecodes.KEY_BOOKMARKS
+    },
+    evdev.ecodes.KEY_B: {
+        1: evdev.ecodes.KEY_B,
+        2: evdev.ecodes.KEY_REDO
     },
     evdev.ecodes.KEY_C: {
         1: evdev.ecodes.KEY_C,
@@ -159,7 +163,7 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_V: {
         1: evdev.ecodes.KEY_V,
-        2: evdev.ecodes.KEY_F18
+        2: evdev.ecodes.KEY_FORWARD
     },
     evdev.ecodes.KEY_Z: {
         1: evdev.ecodes.KEY_Z,
