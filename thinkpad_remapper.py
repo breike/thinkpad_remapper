@@ -52,7 +52,8 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_Q: {
         1: evdev.ecodes.KEY_Q,
-        2: evdev.ecodes.KEY_F13
+        2: evdev.ecodes.KEY_F13,
+        3: evdev.ecodes.KEY_TAB     # Compose-held: Tab
     },
     evdev.ecodes.KEY_W: {
         1: evdev.ecodes.KEY_W,
@@ -61,7 +62,7 @@ REMAP_TABLE = {
     evdev.ecodes.KEY_E: {
         1: evdev.ecodes.KEY_E,
         2: evdev.ecodes.KEY_UP,
-        3: evdev.ecodes.KEY_PROG2,   # Compose-held: XF86Launch2
+        3: evdev.ecodes.KEY_MEDIA,   # Compose-held: XF86Go
     },
     evdev.ecodes.KEY_R: {
         1: evdev.ecodes.KEY_R,
@@ -77,17 +78,17 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_A: {
         1: evdev.ecodes.KEY_A,
-        2: evdev.ecodes.KEY_PROG1
+        2: evdev.ecodes.KEY_HOMEPAGE   # XF86AudioPlay (см. keymap: I172)
     },
     evdev.ecodes.KEY_S: {
         1: evdev.ecodes.KEY_S,
         2: evdev.ecodes.KEY_LEFT,
-        3: evdev.ecodes.KEY_PROG3,   # Compose-held: XF86Launch3
+        3: evdev.ecodes.KEY_KPRIGHTPAREN,   # Compose-held: XF86HomePage (I180)
     },
     evdev.ecodes.KEY_D: {
         1: evdev.ecodes.KEY_D,
         2: evdev.ecodes.KEY_DOWN,
-        3: evdev.ecodes.KEY_PROG4,   # Compose-held: XF86Launch4
+        3: evdev.ecodes.KEY_EXIT,   # Compose-held: XF86AudioStop (I174)
     },
     evdev.ecodes.KEY_F: {
         1: evdev.ecodes.KEY_F,
