@@ -26,8 +26,10 @@ import evdev  # (sudo pip3 install evdev)
 # making layered layout...
 current_layer = 1
 
-# key for switching to layers on pressing
-layering_key = evdev.ecodes.KEY_SPACE
+# Keys that switch to a layer while held: holding the layering key
+# selects the corresponding layer, releasing it falls back to layer 1.
+# Space -> layer 2 (page/nav), Compose -> layer 3 (media/launch).
+layering_keys = {evdev.ecodes.KEY_SPACE: 2, evdev.ecodes.KEY_COMPOSE: 3}
 
 # If True, one-shot modifiers (layer-2 CapsLock -> Ctrl, Tab -> Alt) act
 # like sticky keys: releasing the source key keeps the modifier armed, so
@@ -58,7 +60,8 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_E: {
         1: evdev.ecodes.KEY_E,
-        2: evdev.ecodes.KEY_UP
+        2: evdev.ecodes.KEY_UP,
+        3: evdev.ecodes.KEY_PROG2,   # Compose-held: XF86Launch2
     },
     evdev.ecodes.KEY_R: {
         1: evdev.ecodes.KEY_R,
@@ -74,19 +77,22 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_A: {
         1: evdev.ecodes.KEY_A,
-        2: evdev.ecodes.KEY_PROG1,
+        2: evdev.ecodes.KEY_PROG1
     },
     evdev.ecodes.KEY_S: {
         1: evdev.ecodes.KEY_S,
-        2: evdev.ecodes.KEY_LEFT
+        2: evdev.ecodes.KEY_LEFT,
+        3: evdev.ecodes.KEY_PROG3,   # Compose-held: XF86Launch3
     },
     evdev.ecodes.KEY_D: {
         1: evdev.ecodes.KEY_D,
-        2: evdev.ecodes.KEY_DOWN
+        2: evdev.ecodes.KEY_DOWN,
+        3: evdev.ecodes.KEY_PROG4,   # Compose-held: XF86Launch4
     },
     evdev.ecodes.KEY_F: {
         1: evdev.ecodes.KEY_F,
-        2: evdev.ecodes.KEY_RIGHT
+        2: evdev.ecodes.KEY_RIGHT,
+        3: evdev.ecodes.KEY_SEARCH,  # Compose-held: XF86Search
     },
     evdev.ecodes.KEY_G: {
         1: evdev.ecodes.KEY_G,
@@ -298,11 +304,11 @@ def handle_event(ui, ev):
     if ev.code == evdev.ecodes.KEY_PAUSE and ev.value == 1:
         return False
 
-    # The layering key switches the layer and is swallowed, including
-    # its auto-repeat, so holding it does not leak spaces.
-    if ev.code == layering_key:
+    # A layering key switches the layer while held and is swallowed,
+    # including its auto-repeat, so holding it never leaks keys.
+    if ev.code in layering_keys:
         if ev.value == 1:
-            current_layer = 2
+            current_layer = layering_keys[ev.code]
         elif ev.value == 0:
             current_layer = 1
         return True
