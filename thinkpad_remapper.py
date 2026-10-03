@@ -78,7 +78,7 @@ REMAP_TABLE = {
     },
     evdev.ecodes.KEY_A: {
         1: evdev.ecodes.KEY_A,
-        2: evdev.ecodes.KEY_HOMEPAGE   # XF86AudioPlay (см. keymap: I172)
+        2: evdev.ecodes.KEY_F14
     },
     evdev.ecodes.KEY_S: {
         1: evdev.ecodes.KEY_S,
