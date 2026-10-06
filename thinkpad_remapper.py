@@ -20,7 +20,6 @@
 # Import necessary libraries.
 import atexit
 import sys
-import time
 # You need to install evdev with a package manager or pip3.
 import evdev  # (sudo pip3 install evdev)
 
@@ -244,26 +243,6 @@ kbd.grab()  # Grab, i.e. prevent the keyboard from emitting original events.
 # change what a still-held key emits on release.
 key_layers = {}
 
-class ModTracker(dict):
-    """Controls one-shot modifiers (armed/sticky) and detects a double
-    tap of the CapsLock key, which emits the root prefix F14
-    (XF86Launch5) instead of layering to layer 2."""
-
-    DOUBLE_TAP_MS = 400
-
-    def __init__(self):
-        super().__init__()
-        self[evdev.ecodes.KEY_LEFTCTRL] = "idle"
-        self[evdev.ecodes.KEY_LEFTALT] = "idle"
-        self.last_caps_press_ms = None
-
-    def on_caps_press(self, now_ms):
-        since = now_ms - self.last_caps_press_ms \
-            if self.last_caps_press_ms is not None else float("inf")
-        self.last_caps_press_ms = now_ms
-        return 0 < since <= self.DOUBLE_TAP_MS
-
-
 # One-shot ctrl/alt modes: a key remapped onto a modifier (e.g. layer-2
 # CapsLock -> Ctrl, Tab -> Alt) is swallowed while held, and the modifier
 # is injected together with the very next key pressed instead. States:
@@ -271,7 +250,10 @@ class ModTracker(dict):
 #   armed - modifier swallowed, waiting to be paired with the next key
 #   <int> - modifier was injected paired with the key of this code; that
 #           key's release also releases the modifier
-mod_tracker = ModTracker()
+mod_tracker = {
+    evdev.ecodes.KEY_LEFTCTRL: "idle",
+    evdev.ecodes.KEY_LEFTALT: "idle",
+}
 
 
 def inject(ui, types):
@@ -332,18 +314,6 @@ def handle_event(ui, ev):
             current_layer = 1
         return True
 
-    if ev.code == evdev.ecodes.KEY_CAPSLOCK and ev.value == 1:
-        # Double tap CapsLock = root prefix F14 (XF86Launch5). A double
-        # tap is handled here BEFORE the normal layering path, so the
-        # first tap no longer "swallows" the second into a pairless
-        # modifier.
-        if mod_tracker.on_caps_press(time.monotonic() * 1000):
-            inject(ui, [(evdev.ecodes.EV_KEY, evdev.ecodes.KEY_F14, 1),
-                        (evdev.ecodes.EV_KEY, evdev.ecodes.KEY_F14, 0)])
-        # else: first tap is a "breadcrumb" for the double-tap detector;
-        # nothing is emitted yet.
-        return True
-
     if ev.code in REMAP_TABLE:
         # Remember the layer this key was pressed in.
         if ev.value == 1:
@@ -360,15 +330,6 @@ def handle_event(ui, ev):
                 # key: nothing arrives here to release.
                 if not STICKY_MODIFIERS:
                     mod_tracker[remapped_code] = "idle"
-                # A modifier that was armed by a helper key (e.g. layer-3
-                # Compose+Q -> Tab, whose layer-2 twin is LeftAlt) must
-                # not stay armed once the helper key is released. Otherwise
-                # the first real Tab is swallowed pairless into an armed
-                # Alt -> the action fires on the second attempt.
-                if remapped_code == evdev.ecodes.KEY_TAB:
-                    mod_tracker[evdev.ecodes.KEY_LEFTALT] = "idle"
-                    inject(ui, [(evdev.ecodes.EV_KEY,
-                                 evdev.ecodes.KEY_TAB, 0)])
             # Auto-repeat: a virtual modifier key has no repeats.
         elif ev.value == 2:
             # Forward the repeat so autorepeat keeps working.
